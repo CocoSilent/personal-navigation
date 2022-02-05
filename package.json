@@ -1,0 +1,26 @@
+{
+  "name": "personal-navigation",
+  "version": "1.0.0",
+  "description": "个人导航",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CocoSilent/personal-navigation.git"
+  },
+  "keywords": [
+    "personal",
+    "navigation"
+  ],
+  "author": "silent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CocoSilent/personal-navigation/issues"
+  },
+  "homepage": "https://github.com/CocoSilent/personal-navigation#readme",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
