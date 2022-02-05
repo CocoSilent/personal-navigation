@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
+const publicPath = '/'
+
 module.exports = {
     mode: "production",
     entry: './src/index.tsx',
@@ -15,6 +18,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -22,7 +26,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "public/index.html"
+            template: "public/index.html",
+            publicPath,
         }),
     ]
 }
