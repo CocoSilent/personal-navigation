@@ -3,14 +3,35 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin'); CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-const publicPath = '/'
+const publicPath = '/';
+
+// css不隔离  less全隔离
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 module.exports = {
     entry: './src/index.tsx',
     module: {
         rules: [
             {
-                test: /\.less$/i,
+                test: cssRegex,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            // 样式隔离
+                            // modules: true,
+                        },
+                    },
+                ],
+            },
+            {
+                test: lessRegex,
                 use: [
                     {
                         loader: 'style-loader',
