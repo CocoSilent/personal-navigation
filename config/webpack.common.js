@@ -32,6 +32,26 @@ module.exports = {
             },
             {
                 test: lessRegex,
+                exclude: lessModuleRegex,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                strictMath: true,
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                test: lessModuleRegex,
                 use: [
                     {
                         loader: 'style-loader',
