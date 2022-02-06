@@ -102,5 +102,11 @@ module.exports = {
             template: "public/index.html",
             publicPath,
         }),
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+        runtimeChunk: 'single',
+    }
 }
