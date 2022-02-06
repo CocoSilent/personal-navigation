@@ -10,10 +10,34 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.less$/i,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            // 样式隔离
+                            modules: true,
+                        },
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                strictMath: true,
+                            },
+                        },
+                    },
+                ],
+            },
+            {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+
         ],
     },
     resolve: {
