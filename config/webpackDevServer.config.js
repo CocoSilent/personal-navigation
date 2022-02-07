@@ -12,5 +12,12 @@ module.exports = merge(config, {
         // },
         compress: true,
         port: 9000,
+        client: {
+            overlay: {
+                errors: true,
+                warnings: false,
+            },
+            progress: true,
+        },
     },
 });
