@@ -6,7 +6,7 @@ const navs = [
         favicon: 'https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/favicon-32x32.png',
         url: 'https://juejin.cn/',
         name: '掘金',
-    }
+    },
 ]
 
 function Nav() {
@@ -16,8 +16,9 @@ function Nav() {
                 {
                     navs.map((nav, index) => {
                         return (
-                            <div key={index}>
-                                {nav.url}
+                            <div key={index} className={styles.navItem}>
+                                <img src={nav.favicon}  onClick={() => {window.open(nav.url);}}/>
+                                <div onClick={() => {window.open(nav.url);}}>{nav.name}</div>
                             </div>)
                     })
                 }
