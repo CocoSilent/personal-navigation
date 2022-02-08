@@ -1,7 +1,8 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true,
     },
     "extends": [
         "eslint:recommended",
@@ -21,6 +22,8 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/no-explicit-any': 0,
     },
     settings: {
         react: {

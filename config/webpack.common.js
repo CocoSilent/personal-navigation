@@ -7,7 +7,7 @@ const publicPath = '/';
 
 // css不隔离  less全隔离
 const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
+// const cssModuleRegex = /\.module\.css$/;
 const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
 

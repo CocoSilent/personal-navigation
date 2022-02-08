@@ -5,6 +5,8 @@ exports.main = async (event, context) => {
     env: cloud.SYMBOL_CURRENT_ENV,
   });
 
+  console.log(app, context);
+
   return {
     event,
     my: '自己的环境',
