@@ -23,7 +23,7 @@ function Header() {
     };
 
     return (
-        <div style={{ height: '100px' }}>
+        <div style={{ height: '50px' }}>
             {/*<Button onClick={callFunction}>调用云函数</Button>*/}
             {/*<p>*/}
             {/*    <b>云函数执行结果</b>*/}

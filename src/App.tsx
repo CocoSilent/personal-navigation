@@ -1,6 +1,7 @@
 import React from "react";
-import BaiDu from "./components/BaiDu";
 import Header from "./components/Header";
+import BaiDu from "./components/BaiDu";
+import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
         <div className="app">
             <Header />
             <BaiDu />
+            <Nav />
             <Footer />
         </div>
     )
