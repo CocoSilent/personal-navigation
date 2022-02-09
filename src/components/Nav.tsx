@@ -7,6 +7,26 @@ const navs = [
         url: 'https://juejin.cn/',
         name: '掘金',
     },
+    {
+        favicon: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
+        url: 'https://www.csdn.net/',
+        name: 'CSDN',
+    },
+    {
+        favicon: 'https://static.oschina.net/new-osc/img/favicon.ico',
+        url: 'https://www.oschina.net/',
+        name: '开源中国',
+    },
+    {
+        favicon: 'https://github.com/favicon.ico',
+        url: 'https://github.com/',
+        name: 'github',
+    },
+    {
+        favicon: 'https://static.zhihu.com/heifetz/favicon.ico',
+        url: 'https://www.zhihu.com/',
+        name: '知乎',
+    },
 ]
 
 function Nav() {
