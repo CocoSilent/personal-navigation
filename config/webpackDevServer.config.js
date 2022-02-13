@@ -21,4 +21,7 @@ module.exports = merge(config, {
             progress: true,
         },
     },
+    cache: {
+        type: 'filesystem', // 使用文件缓存
+    },
 });
