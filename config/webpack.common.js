@@ -39,6 +39,9 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        }
                     },
                     {
                         loader: 'less-loader',
@@ -61,6 +64,7 @@ module.exports = {
                         options: {
                             // 样式隔离
                             modules: true,
+                            importLoaders: 1,
                         },
                     },
                     {
@@ -78,7 +82,11 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
-
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                include: path.resolve(__dirname, '../src'),
+                type: 'asset/resource',
+            }
         ],
     },
     resolve: {
@@ -87,6 +95,9 @@ module.exports = {
             "crypto": require.resolve("crypto-browserify"),
             "stream": require.resolve("stream-browserify")
         },
+        alias: {
+            '@': './',
+        }
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
