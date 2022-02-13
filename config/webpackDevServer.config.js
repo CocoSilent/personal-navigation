@@ -12,6 +12,7 @@ module.exports = merge(config, {
         // },
         compress: true,
         port: 9000,
+        hot: true, // 热更新
         client: {
             overlay: {
                 errors: true,
