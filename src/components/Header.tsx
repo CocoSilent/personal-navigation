@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { Button } from '@douyinfe/semi-ui';
+import { Button, Tooltip } from '@douyinfe/semi-ui';
+import { IconGithubLogo, IconImage } from '@douyinfe/semi-icons';
 import { getApp } from '../tcb'
+import { GITHUB_PROJECT } from '../common/constant';
+
+import styles from './header.module.less';
 
 const app = getApp();
 
@@ -23,12 +27,19 @@ function Header() {
     };
 
     return (
-        <div style={{ height: '50px' }}>
-            {/*<Button onClick={callFunction}>调用云函数</Button>*/}
-            {/*<p>*/}
-            {/*    <b>云函数执行结果</b>*/}
-            {/*</p>*/}
-            {/*<p>{callFunctionResult}</p>*/}
+        <div className={styles.header}>
+            <div style={{ textAlign: "right", paddingRight: '32px' }}>
+                <Tooltip content="切换皮肤">
+                    <Button  size="small" icon={<IconImage style={{ color: "black"}} />}
+                             style={{marginLeft: 8}}
+                             onClick={() => window.open(GITHUB_PROJECT)} />
+                </Tooltip>
+                <Tooltip content="项目详情">
+                    <Button  size="small" icon={<IconGithubLogo style={{ color: "black"}} />}
+                            style={{marginLeft: 8}}
+                            onClick={() => window.open(GITHUB_PROJECT)} />
+                </Tooltip>
+            </div>
         </div>
     )
 }
