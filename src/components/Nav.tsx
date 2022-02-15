@@ -37,7 +37,7 @@ function Nav() {
                     navs.map((nav, index) => {
                         return (
                             <div key={index} className={styles.navItem}>
-                                <img src={nav.favicon}  onClick={() => {window.open(nav.url);}}/>
+                                <img width='32px' height='32px' src={nav.favicon}  onClick={() => {window.open(nav.url);}}/>
                                 <div onClick={() => {window.open(nav.url);}}>{nav.name}</div>
                             </div>)
                     })

@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import BaiDu from "./components/BaiDu";
 import Nav from "./components/Nav";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -10,7 +10,7 @@ function App() {
             <Header />
             <BaiDu />
             <Nav />
-            <Footer />
+            {/*<Footer />*/}
         </div>
     )
 }
