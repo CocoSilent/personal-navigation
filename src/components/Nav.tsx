@@ -1,4 +1,5 @@
 import React from "react";
+import { IconEdit, IconDelete } from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
 
 const navs = [
@@ -27,6 +28,11 @@ const navs = [
         url: 'https://www.csdn.net/',
         name: 'CSDN',
     },
+    {
+        favicon: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
+        url: 'https://www.csdn.net/',
+        name: 'CSDN',
+    },
 ]
 
 function Nav() {
@@ -39,6 +45,14 @@ function Nav() {
                             <div key={index} className={styles.navItem}>
                                 <img width='32px' height='32px' src={nav.favicon}  onClick={() => {window.open(nav.url);}}/>
                                 <div onClick={() => {window.open(nav.url);}}>{nav.name}</div>
+                                <div className={styles.options}>
+                                    <div>
+                                        <IconEdit />
+                                    </div>
+                                    <div>
+                                        <IconDelete />
+                                    </div>
+                                </div>
                             </div>)
                     })
                 }
