@@ -30,12 +30,12 @@ function Header() {
         <div className={styles.header}>
             <div style={{ textAlign: "right", paddingRight: '32px' }}>
                 <Tooltip content="切换皮肤">
-                    <Button  size="small" icon={<IconImage style={{ color: "black"}} />}
+                    <Button  size="default" icon={<IconImage size="large" style={{ color: "green"}} />}
                              style={{marginLeft: 8}}
                              onClick={() => window.open(GITHUB_PROJECT)} />
                 </Tooltip>
                 <Tooltip content="项目详情">
-                    <Button  size="small" icon={<IconGithubLogo style={{ color: "black"}} />}
+                    <Button  size="default" icon={<IconGithubLogo size="large" style={{ color: "black"}} />}
                             style={{marginLeft: 8}}
                             onClick={() => window.open(GITHUB_PROJECT)} />
                 </Tooltip>
