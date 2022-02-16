@@ -1,14 +1,23 @@
 .nav {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  //justify-content: center;
+  align-items: center;
   padding-top: 16px;
+  .navName {
+    width: 720px;
+    max-width: 80%;
+    padding-bottom: 8px;
+  }
   .navContent {
     width: 720px;
     max-width: 80%;
-    //border: 1px black solid;
     display: flex;
     flex-wrap: wrap;
     padding-top: 16px;
+    //box-shadow:0 0 4px #888888;
+    border: 1px dotted #785;
+    margin-bottom: 16px;
     .navItem {
       width: 20%;
       text-align: center;
