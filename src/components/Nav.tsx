@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {IconEdit, IconDelete, IconPlus} from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
-import {Tooltip, Modal, Input, Toast} from "@douyinfe/semi-ui";
+import {Tooltip, Modal, Input, Toast, Switch, Typography} from "@douyinfe/semi-ui";
+
+const { Title } = Typography;
 
 const defaultNavs = {
     name: '我的网址',
@@ -48,6 +50,8 @@ type Option = {
 
 function Nav() {
     const [groups, setGroups] = useState([defaultNavs]);
+
+    const [open, setOpen] = useState(false);
 
     const [option, setOption] = useState<Option>({});
 
@@ -149,11 +153,25 @@ function Nav() {
                 {
                     (option.type === OptionType.modify || option.type === OptionType.add) &&
                         <>
-                            <Input prefix="分组名称:" placeholder="分组名称" showClear></Input>
-                            <br/><br/>
+                            {
+                                option.type === OptionType.add &&
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', paddingLeft: '14px' }}>
+                                    <Title heading={6} style={{ }} disabled={!open}>
+                                        新增分组
+                                    </Title>
+                                    <Switch checked={open} onChange={setOpen} />
+                                </div>
+                            }
+                            {
+                                (option.type === OptionType.modify || open) &&
+                                    <>
+                                        <Input prefix="分组名称:" placeholder="请输入分组名称" showClear></Input>
+                                        <br/><br/>
+                                    </>
+                            }
                             <Input prefix="网站地址:" placeholder="请输入网站地址" showClear></Input>
                             <br/><br/>
-                            <Input prefix="图标地址:" placeholder="默认为网站根目录favicon" showClear></Input>
+                            <Input prefix="图站地址:" placeholder="默认为网站根目录favicon" showClear></Input>
                         </>
                 }
             </Modal>
