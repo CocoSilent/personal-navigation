@@ -120,17 +120,16 @@ function Nav() {
                 title={option.title}
                 visible={option.visible}
                 onCancel={() => {setOption({visible:false})}}
-                className={styles.optionModal}
+                className="optionModal"
             >
                 {
                     option.type === OptionType.modify &&
                         <>
-                            <Input prefix="    分组:" showClear></Input>
+                            <Input prefix="分组名称:" placeholder="分组名称" showClear></Input>
                             <br/><br/>
-                            <Input prefix="favicon:" showClear></Input>
+                            <Input prefix="网站地址:" placeholder="请输入网站地址" showClear></Input>
                             <br/><br/>
-                            <Input prefix="    url:" showClear></Input>
-                            <br/><br/>
+                            <Input prefix="图标地址:" placeholder="默认为网站根目录favicon" showClear></Input>
                         </>
                 }
             </Modal>
