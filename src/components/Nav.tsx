@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {IconEdit, IconDelete} from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
-import {Tooltip} from "@douyinfe/semi-ui";
+import {Tooltip, Modal, Input} from "@douyinfe/semi-ui";
 
 const defaultNavs = {
     name: '我的网址',
@@ -31,16 +31,25 @@ const defaultNavs = {
             url: 'https://www.csdn.net/',
             name: 'CSDN',
         },
-        {
-            favicon: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            url: 'https://www.csdn.net/',
-            name: 'CSDN',
-        },
     ]
+}
+
+enum OptionType {
+    add = 1,
+    delete = 2,
+    modify = 3,
+}
+
+type Option = {
+    title?:string,
+    visible?:boolean,
+    type?:OptionType,
 }
 
 function Nav() {
     const [groups, setGroups] = useState([defaultNavs]);
+
+    const [option, setOption] = useState<Option>({});
 
     useEffect(() => {
         // setGroups([defaultNavs, defaultNavs]);
@@ -62,10 +71,26 @@ function Nav() {
                                                          content={
                                                              <div className={styles.options}>
                                                                  <div>
-                                                                     <IconEdit className={styles.icon} size="small"/>
+                                                                     <IconEdit
+                                                                         className={styles.icon}
+                                                                         size="small"
+                                                                         onClick={() => setOption({
+                                                                             title: '修改',
+                                                                             visible: true,
+                                                                             type: OptionType.modify,
+                                                                         })}
+                                                                     />
                                                                  </div>
                                                                  <div>
-                                                                     <IconDelete className={styles.icon} size="small"/>
+                                                                     <IconDelete
+                                                                         className={styles.icon}
+                                                                         size="small"
+                                                                         onClick={() => setOption({
+                                                                             title: '删除',
+                                                                             visible: true,
+                                                                             type: OptionType.delete
+                                                                         })}
+                                                                     />
                                                                  </div>
                                                              </div>
                                                          }
@@ -91,6 +116,24 @@ function Nav() {
                     )
                 })
             }
+            <Modal
+                title={option.title}
+                visible={option.visible}
+                onCancel={() => {setOption({visible:false})}}
+                className={styles.optionModal}
+            >
+                {
+                    option.type === OptionType.modify &&
+                        <>
+                            <Input prefix="    分组:" showClear></Input>
+                            <br/><br/>
+                            <Input prefix="favicon:" showClear></Input>
+                            <br/><br/>
+                            <Input prefix="    url:" showClear></Input>
+                            <br/><br/>
+                        </>
+                }
+            </Modal>
         </div>
     )
 }
