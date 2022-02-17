@@ -3,7 +3,7 @@ import {IconEdit, IconDelete, IconPlus} from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
 import {Tooltip, Modal, Input, Toast, Switch, Typography} from "@douyinfe/semi-ui";
 
-const { Title } = Typography;
+const {Title} = Typography;
 
 const defaultNavs = {
     name: '我的网址',
@@ -43,17 +43,31 @@ enum OptionType {
 }
 
 type Option = {
-    title?:string,
-    visible?:boolean,
-    type?:OptionType,
+    title?: string,
+    visible?: boolean,
+    type?: OptionType,
+}
+
+type Record = {
+    groupIndex?: number
+    navIndex?: number
+    groupName?: string,
+    favicon?: string,
+    url?: string,
+    navName?: string,
 }
 
 function Nav() {
     const [groups, setGroups] = useState([defaultNavs]);
-
     const [open, setOpen] = useState(false);
-
     const [option, setOption] = useState<Option>({});
+
+    const [record, setRecord] = useState<Record>({});
+
+    // const [favicon, setFavicon] = useState('');
+    // const [url, setUrl] = useState('');
+    // const [navName, setNavName] = useState('');
+    // const [groupName, setGroupName] = useState('');
 
     const onDelete = (groupIndex: number, navIndex: number) => {
         Modal.confirm({
@@ -70,6 +84,10 @@ function Nav() {
                 setGroups([...groups]);
             }
         })
+    }
+
+    const onOk = () => {
+
     }
 
     useEffect(() => {
@@ -95,22 +113,42 @@ function Nav() {
                                                                      <IconPlus
                                                                          className={styles.icon}
                                                                          size="small"
-                                                                         onClick={() => setOption({
-                                                                             title: '新增',
-                                                                             visible: true,
-                                                                             type: OptionType.add,
-                                                                         })}
+                                                                         onClick={() => {
+                                                                             setOption({
+                                                                                 title: '新增',
+                                                                                 visible: true,
+                                                                                 type: OptionType.add,
+                                                                             })
+                                                                             setRecord({
+                                                                                 groupIndex,
+                                                                                 navIndex,
+                                                                                 groupName: group.name,
+                                                                                 favicon: nav.favicon,
+                                                                                 url: nav.url,
+                                                                                 navName: nav.name
+                                                                             })
+                                                                         }}
                                                                      />
                                                                  </div>
                                                                  <div>
                                                                      <IconEdit
                                                                          className={styles.icon}
                                                                          size="small"
-                                                                         onClick={() => setOption({
-                                                                             title: '修改',
-                                                                             visible: true,
-                                                                             type: OptionType.modify,
-                                                                         })}
+                                                                         onClick={() => {
+                                                                             setOption({
+                                                                                 title: '修改',
+                                                                                 visible: true,
+                                                                                 type: OptionType.modify,
+                                                                             })
+                                                                             setRecord({
+                                                                                 groupIndex,
+                                                                                 navIndex,
+                                                                                 groupName: group.name,
+                                                                                 favicon: nav.favicon,
+                                                                                 url: nav.url,
+                                                                                 navName: nav.name
+                                                                             })
+                                                                         }}
                                                                      />
                                                                  </div>
                                                                  <div>
@@ -128,9 +166,10 @@ function Nav() {
                                                     <div
                                                         className={styles.content}
                                                     >
-                                                        <img width='32px' height='32px' src={nav.favicon} onClick={() => {
-                                                            window.open(nav.url);
-                                                        }}/>
+                                                        <img width='32px' height='32px' src={nav.favicon}
+                                                             onClick={() => {
+                                                                 window.open(nav.url);
+                                                             }}/>
                                                         <div onClick={() => {
                                                             window.open(nav.url);
                                                         }}>{nav.name}</div>
@@ -147,32 +186,72 @@ function Nav() {
             <Modal
                 title={option.title}
                 visible={option.visible}
-                onCancel={() => {setOption({visible:false})}}
+                onCancel={() => {
+                    setOption({visible: false})
+                }}
                 className="optionModal"
+                width="40%"
+                onOk={onOk}
             >
                 {
                     (option.type === OptionType.modify || option.type === OptionType.add) &&
-                        <>
-                            {
-                                option.type === OptionType.add &&
-                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', paddingLeft: '14px' }}>
-                                    <Title heading={6} style={{ }} disabled={!open}>
-                                        新增分组
-                                    </Title>
-                                    <Switch checked={open} onChange={setOpen} />
-                                </div>
-                            }
-                            {
-                                (option.type === OptionType.modify || open) &&
-                                    <>
-                                        <Input prefix="分组名称:" placeholder="请输入分组名称" showClear></Input>
-                                        <br/><br/>
-                                    </>
-                            }
-                            <Input prefix="网站地址:" placeholder="请输入网站地址" showClear></Input>
-                            <br/><br/>
-                            <Input prefix="图站地址:" placeholder="默认为网站根目录favicon" showClear></Input>
-                        </>
+                    <>
+                        {
+                            option.type === OptionType.add &&
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                marginBottom: '8px',
+                                paddingLeft: '14px'
+                            }}>
+                                <Title heading={6} style={{}} disabled={!open}>
+                                    新增分组
+                                </Title>
+                                <Switch checked={open} onChange={setOpen}/>
+                            </div>
+                        }
+                        {
+                            (option.type === OptionType.modify || open) &&
+                            <>
+                                <Input prefix="分组名称:" placeholder="请输入分组名称" showClear value={record.groupName}
+                                       onChange={
+                                           (value => {
+                                               setRecord({
+                                                   ...record,
+                                                   groupName: value,
+                                               })
+                                           })
+                                       }/>
+                                <br/><br/>
+                            </>
+                        }
+                        <Input prefix="网站地址:" placeholder="请输入网站地址" showClear value={record.url} onChange={
+                            (value => {
+                                setRecord({
+                                    ...record,
+                                    url: value,
+                                })
+                            })
+                        }/>
+                        <br/><br/>
+                        <Input prefix="网站简称:" placeholder="请输入网站简称" showClear value={record.navName} onChange={
+                            (value => {
+                                setRecord({
+                                    ...record,
+                                    navName: value,
+                                })
+                            })
+                        }/>
+                        <br/><br/>
+                        <Input prefix="图片地址:" placeholder="默认为网站根目录favicon" showClear value={record.favicon} onChange={
+                            (value => {
+                                setRecord({
+                                    ...record,
+                                    favicon: value,
+                                })
+                            })
+                        }/>
+                    </>
                 }
             </Modal>
         </div>
