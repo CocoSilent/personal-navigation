@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
-import {IconEdit, IconDelete} from '@douyinfe/semi-icons';
+import {IconEdit, IconDelete, IconPlus} from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
-import {Tooltip, Modal, Input} from "@douyinfe/semi-ui";
+import {Tooltip, Modal, Input, Toast} from "@douyinfe/semi-ui";
 
 const defaultNavs = {
     name: '我的网址',
@@ -51,6 +51,23 @@ function Nav() {
 
     const [option, setOption] = useState<Option>({});
 
+    const onDelete = (groupIndex: number, navIndex: number) => {
+        Modal.confirm({
+            title: '确定删除' + groups[groupIndex].navs[navIndex].name + '吗？',
+            onOk: () => {
+                if (groups.length === 1 && groups[groupIndex].navs.length === 1) {
+                    Toast.error('最后一个不能删除！');
+                    return
+                }
+                groups[groupIndex].navs.splice(navIndex, 1);
+                if (groups[groupIndex].navs.length === 0) {
+                    groups.splice(groupIndex, 1);
+                }
+                setGroups([...groups]);
+            }
+        })
+    }
+
     useEffect(() => {
         // setGroups([defaultNavs, defaultNavs]);
     }, [])
@@ -58,18 +75,29 @@ function Nav() {
     return (
         <div className={styles.nav}>
             {
-                groups.map(group => {
+                groups.map((group, groupIndex) => {
                     return (
                         <>
                             <div className={styles.navName}>{group.name}</div>
                             <div className={styles.navContent}>
                                 {
-                                    group.navs.map((nav, index) => {
+                                    group.navs.map((nav, navIndex) => {
                                         return (
-                                            <div key={index} className={styles.navItem}>
+                                            <div key={navIndex} className={styles.navItem}>
                                                 <Tooltip className={styles.toolTip}
                                                          content={
                                                              <div className={styles.options}>
+                                                                 <div>
+                                                                     <IconPlus
+                                                                         className={styles.icon}
+                                                                         size="small"
+                                                                         onClick={() => setOption({
+                                                                             title: '新增',
+                                                                             visible: true,
+                                                                             type: OptionType.add,
+                                                                         })}
+                                                                     />
+                                                                 </div>
                                                                  <div>
                                                                      <IconEdit
                                                                          className={styles.icon}
@@ -85,11 +113,7 @@ function Nav() {
                                                                      <IconDelete
                                                                          className={styles.icon}
                                                                          size="small"
-                                                                         onClick={() => setOption({
-                                                                             title: '删除',
-                                                                             visible: true,
-                                                                             type: OptionType.delete
-                                                                         })}
+                                                                         onClick={() => onDelete(groupIndex, navIndex)}
                                                                      />
                                                                  </div>
                                                              </div>
@@ -123,7 +147,7 @@ function Nav() {
                 className="optionModal"
             >
                 {
-                    option.type === OptionType.modify &&
+                    (option.type === OptionType.modify || option.type === OptionType.add) &&
                         <>
                             <Input prefix="分组名称:" placeholder="分组名称" showClear></Input>
                             <br/><br/>
