@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {IconEdit, IconDelete, IconPlus} from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
 import {Tooltip, Modal, Input, Toast, Switch, Typography} from "@douyinfe/semi-ui";
@@ -43,26 +43,42 @@ enum OptionType {
 }
 
 type Option = {
-    title?: string,
-    visible?: boolean,
-    type?: OptionType,
+    title: string,
+    visible: boolean,
+    type: OptionType,
 }
 
-type Record = {
-    groupIndex?: number
-    navIndex?: number
-    groupName?: string,
-    favicon?: string,
-    url?: string,
-    navName?: string,
+type NavRecord = {
+    groupIndex: number
+    navIndex: number
+    groupName: string,
+    favicon: string,
+    url: string,
+    navName: string,
 }
 
 function Nav() {
     const [groups, setGroups] = useState([defaultNavs]);
-    const [open, setOpen] = useState(false);
-    const [option, setOption] = useState<Option>({});
+    const saveGroups = useCallback((tmpGroups: Array<any>) => {
+        setGroups(tmpGroups);
+        localStorage.setItem('groups', JSON.stringify(tmpGroups));
+    }, [])
 
-    const [record, setRecord] = useState<Record>({});
+    const [open, setOpen] = useState(false);
+    const [option, setOption] = useState<Option>({
+        title: '',
+        visible: false,
+        type: OptionType.modify,
+    });
+
+    const [navRecord, setNavRecord] = useState<NavRecord>({
+        groupIndex: -1,
+        navIndex: -1,
+        groupName: '',
+        favicon: '',
+        url: '',
+        navName: '',
+    });
 
     // const [favicon, setFavicon] = useState('');
     // const [url, setUrl] = useState('');
@@ -81,13 +97,25 @@ function Nav() {
                 if (groups[groupIndex].navs.length === 0) {
                     groups.splice(groupIndex, 1);
                 }
-                setGroups([...groups]);
+                saveGroups([...groups]);
             }
         })
     }
 
     const onOk = () => {
-
+        const currentGroup = groups[navRecord.groupIndex];
+        if (option.type === OptionType.modify) {
+            currentGroup.name = navRecord.groupName;
+            const currentNav = currentGroup.navs[navRecord.navIndex];
+            currentNav.favicon = navRecord.favicon;
+            currentNav.url = navRecord.url;
+            currentNav.name = navRecord.navName;
+        }
+        setOption({
+            ...option,
+            visible: false,
+        })
+        saveGroups([...groups])
     }
 
     useEffect(() => {
@@ -119,7 +147,7 @@ function Nav() {
                                                                                  visible: true,
                                                                                  type: OptionType.add,
                                                                              })
-                                                                             setRecord({
+                                                                             setNavRecord({
                                                                                  groupIndex,
                                                                                  navIndex,
                                                                                  groupName: group.name,
@@ -140,7 +168,7 @@ function Nav() {
                                                                                  visible: true,
                                                                                  type: OptionType.modify,
                                                                              })
-                                                                             setRecord({
+                                                                             setNavRecord({
                                                                                  groupIndex,
                                                                                  navIndex,
                                                                                  groupName: group.name,
@@ -187,7 +215,10 @@ function Nav() {
                 title={option.title}
                 visible={option.visible}
                 onCancel={() => {
-                    setOption({visible: false})
+                    setOption({
+                        ...option,
+                        visible: false,
+                    })
                 }}
                 className="optionModal"
                 width="40%"
@@ -213,11 +244,11 @@ function Nav() {
                         {
                             (option.type === OptionType.modify || open) &&
                             <>
-                                <Input prefix="分组名称:" placeholder="请输入分组名称" showClear value={record.groupName}
+                                <Input prefix="分组名称:" placeholder="请输入分组名称" showClear value={navRecord.groupName}
                                        onChange={
                                            (value => {
-                                               setRecord({
-                                                   ...record,
+                                               setNavRecord({
+                                                   ...navRecord,
                                                    groupName: value,
                                                })
                                            })
@@ -225,28 +256,28 @@ function Nav() {
                                 <br/><br/>
                             </>
                         }
-                        <Input prefix="网站地址:" placeholder="请输入网站地址" showClear value={record.url} onChange={
+                        <Input prefix="网站地址:" placeholder="请输入网站地址" showClear value={navRecord.url} onChange={
                             (value => {
-                                setRecord({
-                                    ...record,
+                                setNavRecord({
+                                    ...navRecord,
                                     url: value,
                                 })
                             })
                         }/>
                         <br/><br/>
-                        <Input prefix="网站简称:" placeholder="请输入网站简称" showClear value={record.navName} onChange={
+                        <Input prefix="网站简称:" placeholder="请输入网站简称" showClear value={navRecord.navName} onChange={
                             (value => {
-                                setRecord({
-                                    ...record,
+                                setNavRecord({
+                                    ...navRecord,
                                     navName: value,
                                 })
                             })
                         }/>
                         <br/><br/>
-                        <Input prefix="图片地址:" placeholder="默认为网站根目录favicon" showClear value={record.favicon} onChange={
+                        <Input prefix="图片地址:" placeholder="默认为网站根目录favicon" showClear value={navRecord.favicon} onChange={
                             (value => {
-                                setRecord({
-                                    ...record,
+                                setNavRecord({
+                                    ...navRecord,
                                     favicon: value,
                                 })
                             })
