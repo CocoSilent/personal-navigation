@@ -138,7 +138,10 @@ function Nav() {
     }
 
     useEffect(() => {
-        // setGroups([defaultNavs, defaultNavs]);
+        const localGroups = localStorage.getItem('groups');
+        if (localGroups) {
+            setGroups(JSON.parse(localGroups));
+        }
     }, [])
 
     return (
