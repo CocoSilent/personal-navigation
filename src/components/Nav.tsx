@@ -103,14 +103,33 @@ function Nav() {
     }
 
     const onOk = () => {
-        const currentGroup = groups[navRecord.groupIndex];
+        if (!navRecord.url || !navRecord.navName) {
+            Toast.error('网站地址和网站名称必须填写！');
+            return
+        }
+        let currentGroup = groups[navRecord.groupIndex];
         if (option.type === OptionType.modify) {
             currentGroup.name = navRecord.groupName;
             const currentNav = currentGroup.navs[navRecord.navIndex];
             currentNav.favicon = navRecord.favicon;
             currentNav.url = navRecord.url;
             currentNav.name = navRecord.navName;
+        } else {
+            if (open) {
+                currentGroup = {
+                    name: navRecord.navName,
+                    navs: [],
+                }
+                groups.push(currentGroup);
+            }
+            const currentNav = {
+                favicon: navRecord.favicon,
+                url: navRecord.url,
+                name: navRecord.navName,
+            }
+            currentGroup.navs.push(currentNav);
         }
+        setOpen(false);
         setOption({
             ...option,
             visible: false,
@@ -150,10 +169,10 @@ function Nav() {
                                                                              setNavRecord({
                                                                                  groupIndex,
                                                                                  navIndex,
-                                                                                 groupName: group.name,
-                                                                                 favicon: nav.favicon,
-                                                                                 url: nav.url,
-                                                                                 navName: nav.name
+                                                                                 groupName: '',
+                                                                                 favicon: '',
+                                                                                 url: '',
+                                                                                 navName: ''
                                                                              })
                                                                          }}
                                                                      />
