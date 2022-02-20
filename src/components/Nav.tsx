@@ -19,19 +19,20 @@ const defaultNavs = {
             name: 'github',
         },
         {
-            favicon: 'https://static.zhihu.com/heifetz/favicon.ico',
-            url: 'https://www.zhihu.com/',
-            name: '知乎',
+            favicon: 'https://developer.mozilla.org/favicon-48x48.97046865.png',
+            url: 'https://developer.mozilla.org/zh-CN/',
+            name: 'MDN',
         },
         {
             favicon: 'https://leetcode-cn.com/favicon.ico',
             url: 'https://leetcode-cn.com/',
             name: '力扣',
         },
+
         {
-            favicon: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            url: 'https://www.csdn.net/',
-            name: 'CSDN',
+            favicon: 'https://static.zhihu.com/heifetz/favicon.ico',
+            url: 'https://www.zhihu.com/',
+            name: '知乎',
         },
     ]
 }
