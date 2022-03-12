@@ -63,7 +63,7 @@ function Nav() {
     const [groups, setGroups] = useState([defaultNavs]);
     const saveGroups = useCallback((tmpGroups: Array<any>) => {
         setGroups(tmpGroups);
-        localStorage.setItem('groups', JSON.stringify(tmpGroups));
+        webSdk.saveGroups(tmpGroups);
     }, [])
 
     const [open, setOpen] = useState(false);
@@ -81,11 +81,6 @@ function Nav() {
         url: '',
         navName: '',
     });
-
-    // const [favicon, setFavicon] = useState('');
-    // const [url, setUrl] = useState('');
-    // const [navName, setNavName] = useState('');
-    // const [groupName, setGroupName] = useState('');
 
     const onDelete = (groupIndex: number, navIndex: number) => {
         Modal.confirm({
@@ -140,10 +135,11 @@ function Nav() {
     }
 
     useEffect(() => {
-        const localGroups = localStorage.getItem('groups');
-        if (localGroups) {
-            setGroups(JSON.parse(localGroups));
-        }
+        webSdk.getGroups().then((serverGroup) => {
+            if (serverGroup) {
+                setGroups(serverGroup);
+            }
+        })
     }, [])
 
     return (

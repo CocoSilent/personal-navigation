@@ -72,8 +72,49 @@ function checkAuth() {
     return false;
 }
 
+async function getGroups() {
+    const openId = getCookie(OPENIDKEY);
+    if (!openId) {
+        return null
+    }
+    const res = await myCloud.callFunction({
+        name: 'getGroups',
+        data: {
+            openId
+        }
+    }).catch((err:any) => {
+        Toast.error('接口调用异常！');
+    })
+    if (res?.result?.group) {
+        return res.result.group
+    }
+    return null;
+}
+
+async function saveGroups(groups: Array<any>) {
+    const openId = getCookie(OPENIDKEY);
+    if (!openId) {
+        return null
+    }
+    const res = await myCloud.callFunction({
+        name: 'saveGroups',
+        data: {
+            openId,
+            groups
+        }
+    }).catch((err:any) => {
+        Toast.error('接口调用异常！');
+    })
+    if (res?.result?.flag) {
+        return true
+    }
+    return null;
+}
+
 export default {
-    checkAuth
+    checkAuth,
+    getGroups,
+    saveGroups
 }
 
 
