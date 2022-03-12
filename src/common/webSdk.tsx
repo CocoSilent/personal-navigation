@@ -1,7 +1,8 @@
 import React from "react";
-import { getCookie } from './utils';
+import { getCookie, setCookie } from './utils';
 import { OPENIDKEY } from './constant';
-import { Modal } from "@douyinfe/semi-ui";
+import { Modal, Input, Toast } from "@douyinfe/semi-ui";
+import "./websdk.less";
 
 const myCloud:any = new window.cloud.Cloud({
     appid: 'wx56f18e2958172116',
@@ -23,12 +24,45 @@ function checkAuth() {
     if (getCookie(OPENIDKEY)) {
         return true
     }
+    let verifyCode = '';
     Modal.info({
-        title: '微信扫码登录',
+        title: '关注公众号',
+        width: 380,
         content: <div>
-            123
+            <div className="gzh">
+
+            </div>
+            <div>
+                <Input onChange={(value) => verifyCode = value } placeholder="请输入验证码" />
+            </div>
         </div>,
-        footer: null,
+        onOk: () => {
+            return new Promise(async (resolve, reject) => {
+                if (!verifyCode) {
+                    Toast.error('验证码不能为空！');
+                    reject();
+                    return
+                }
+                myCloud.callFunction({
+                    name: 'web-login',
+                    data: {
+                        verifyCode
+                    }
+                }).then((res:any) => {
+                    if (res?.result?.openId) {
+                        setCookie(OPENIDKEY, res.result.openId, 30);
+                        resolve(res.result.openId);
+                    } else {
+                        Toast.error('接口调用异常！');
+                        reject();
+                    }
+                }).catch((err:any) => {
+                    Toast.error('接口调用异常！');
+                    reject();
+                })
+            })
+
+        }
     });
     return false;
 }
