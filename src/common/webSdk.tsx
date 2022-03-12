@@ -1,5 +1,7 @@
+import React from "react";
 import { getCookie } from './utils';
 import { OPENIDKEY } from './constant';
+import { Modal } from "@douyinfe/semi-ui";
 
 const myCloud:any = new window.cloud.Cloud({
     appid: 'wx56f18e2958172116',
@@ -21,6 +23,13 @@ function checkAuth() {
     if (getCookie(OPENIDKEY)) {
         return true
     }
+    Modal.info({
+        title: '微信扫码登录',
+        content: <div>
+            123
+        </div>,
+        footer: null,
+    });
     return false;
 }
 

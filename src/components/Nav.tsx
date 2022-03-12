@@ -166,6 +166,9 @@ function Nav() {
                                                                          className={styles.icon}
                                                                          size="small"
                                                                          onClick={() => {
+                                                                             if (!webSdk.checkAuth()) {
+                                                                                 return
+                                                                             }
                                                                              setOption({
                                                                                  title: '新增',
                                                                                  visible: true,
