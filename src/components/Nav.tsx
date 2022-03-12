@@ -2,6 +2,7 @@ import React, {useState, useEffect, useCallback} from "react";
 import {IconEdit, IconDelete, IconPlus} from '@douyinfe/semi-icons';
 import styles from './nav.module.less';
 import {Tooltip, Modal, Input, Toast, Switch, Typography} from "@douyinfe/semi-ui";
+import webSdk from "../common/webSdk";
 
 const {Title} = Typography;
 

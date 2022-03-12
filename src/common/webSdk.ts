@@ -1,3 +1,6 @@
+import { getCookie } from './utils';
+import { OPENIDKEY } from './constant';
+
 const myCloud:any = new window.cloud.Cloud({
     appid: 'wx56f18e2958172116',
     // 必填，表示是未登录模式
@@ -14,7 +17,16 @@ myCloud.init().then(() => {
     window.myCloud = myCloud;
 });
 
-export {}
+function checkAuth() {
+    if (getCookie(OPENIDKEY)) {
+        return true
+    }
+    return false;
+}
+
+export default {
+    checkAuth
+}
 
 
 
