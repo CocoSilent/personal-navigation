@@ -1,8 +1,9 @@
 import React from "react";
 import { getCookie, setCookie } from './utils';
 import { OPENIDKEY } from './constant';
-import { Modal, Input, Toast } from "@douyinfe/semi-ui";
+import {Modal, Input, Toast, Tooltip, Button} from "@douyinfe/semi-ui";
 import "./websdk.less";
+import {IconHelpCircle} from "@douyinfe/semi-icons";
 
 const myCloud:any = new window.cloud.Cloud({
     appid: 'wx56f18e2958172116',
@@ -27,12 +28,16 @@ function checkAuth() {
     let verifyCode = '';
     Modal.info({
         title: '关注公众号',
-        width: 380,
+        width: 370,
         content: <div>
             <div className="gzh">
-
             </div>
             <div>
+                <div>在公众号内回复<span style={{ fontWeight: 'bold'}}>验证码</span>获取
+                    <Tooltip content="仅用于获取用户唯一openId，不能获取微信号，不会造成隐私泄露">
+                        <IconHelpCircle size="small" />
+                    </Tooltip>
+                </div>
                 <Input onChange={(value) => verifyCode = value } placeholder="请输入验证码" />
             </div>
         </div>,
@@ -53,7 +58,7 @@ function checkAuth() {
                         setCookie(OPENIDKEY, res.result.openId, 30);
                         resolve(res.result.openId);
                     } else {
-                        Toast.error('接口调用异常！');
+                        Toast.error('验证码无效，请重新获取！');
                         reject();
                     }
                 }).catch((err:any) => {
