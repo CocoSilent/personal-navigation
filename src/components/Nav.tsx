@@ -19,7 +19,7 @@ const defaultNavs = {
             name: 'github',
         },
         {
-            favicon: 'https://developer.mozilla.org/favicon-48x48.97046865.png',
+            favicon: 'https://developer.mozilla.org/favicon-192x192.png',
             url: 'https://developer.mozilla.org/zh-CN/',
             name: 'MDN',
         },

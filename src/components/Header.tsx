@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import { Button, Tooltip } from '@douyinfe/semi-ui';
 import { IconGithubLogo, IconImage } from '@douyinfe/semi-icons';
-import { getApp } from '../tcb'
+// import { getApp } from '../tcb'
 import { GITHUB_PROJECT } from '../common/constant';
 
 import styles from './header.module.less';
 
-const app = getApp();
+// const app = getApp();
 
 function Header() {
 
-    const [callFunctionResult, setCallFunctionResult] = useState("");
-
-    const callFunction = async () => {
-        try {
-            const res = await app.callFunction({
-                name: "helloworld",
-                data: {
-                    foo: "bar",
-                },
-            });
-            setCallFunctionResult(JSON.stringify(res));
-        } catch (e: any) {
-            setCallFunctionResult(e.message);
-        }
-    };
+    // const [callFunctionResult, setCallFunctionResult] = useState("");
+    //
+    // const callFunction = async () => {
+    //     try {
+    //         const res = await app.callFunction({
+    //             name: "helloworld",
+    //             data: {
+    //                 foo: "bar",
+    //             },
+    //         });
+    //         setCallFunctionResult(JSON.stringify(res));
+    //     } catch (e: any) {
+    //         setCallFunctionResult(e.message);
+    //     }
+    // };
 
     return (
         <div className={styles.header}>
