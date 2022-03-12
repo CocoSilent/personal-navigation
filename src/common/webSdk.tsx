@@ -85,7 +85,7 @@ async function getGroups() {
     }).catch((err:any) => {
         Toast.error('接口调用异常！');
     })
-    if (res?.result?.group) {
+    if (res?.result?.groups) {
         return res.result.groups
     }
     return null;
