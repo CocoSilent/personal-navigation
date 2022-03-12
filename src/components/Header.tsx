@@ -34,12 +34,12 @@ function Header() {
                 {/*             style={{marginLeft: 8}}*/}
                 {/*             onClick={() => window.open(GITHUB_PROJECT)} />*/}
                 {/*</Tooltip>*/}
-                <Tooltip content="鼠标放到网站图标上停留1秒以上就可以新增、修改、删除网站了~">
-                    <Button  size="default" icon={<IconHelpCircle size="large" style={{ color: "black"}} />}
+                <Tooltip content="鼠标放到网站图标上停留1秒以上就可以新增、修改、删除网站了~" position="leftBottom">
+                    <Button  icon={<IconHelpCircle size="large" style={{ color: "black"}} />}
                              style={{marginLeft: 8}} />
                 </Tooltip>
                 <Tooltip content="项目详情">
-                    <Button  size="default" icon={<IconGithubLogo size="large" style={{ color: "black"}} />}
+                    <Button  icon={<IconGithubLogo size="large" style={{ color: "black"}} />}
                             style={{marginLeft: 8}}
                             onClick={() => window.open(GITHUB_PROJECT)} />
                 </Tooltip>
