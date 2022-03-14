@@ -3,7 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-const publicPath = '/';
+const arguments = process.argv.splice(2);
+const isEnvDevelopment = arguments[1] === 'serve';
+
+const publicPath = isEnvDevelopment ? '/' : '//web-6g2g7792915bd2fb-1302006950.tcloudbaseapp.com/nav/';
 
 // css不隔离  less全隔离
 const cssRegex = /\.css$/;
