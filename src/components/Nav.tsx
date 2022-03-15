@@ -233,7 +233,7 @@ function Nav() {
                                                     <div
                                                         className={styles.content}
                                                     >
-                                                        <img width='32px' height='32px' src={nav.favicon}
+                                                        <img width='32px' height='32px' src={nav.favicon || (new URL(nav.url).origin + '/favicon.ico')}
                                                              onClick={() => {
                                                                  window.open(nav.url);
                                                              }}/>
