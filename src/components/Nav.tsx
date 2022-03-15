@@ -6,7 +6,7 @@ import webSdk from "../common/webSdk";
 
 const {Title} = Typography;
 
-const defaultNavs = {
+const defaultNavs1 = {
     name: '我的网址',
     navs: [
         {
@@ -38,6 +38,22 @@ const defaultNavs = {
     ]
 }
 
+const defaultNavs2 = {
+    name: '常用工具',
+    navs: [
+        {
+            favicon: 'https://www.bejson.com/static/bejson/img/qq/bejson-q.png',
+            url: 'https://www.bejson.com/',
+            name: 'bejson',
+        },
+        {
+            favicon: 'https://tool.oschina.net/img/favicon.ico',
+            url: 'https://tool.oschina.net/encrypt?type=3',
+            name: 'base64',
+        },
+    ]
+}
+
 enum OptionType {
     add = 1,
     delete = 2,
@@ -60,7 +76,7 @@ type NavRecord = {
 }
 
 function Nav() {
-    const [groups, setGroups] = useState([defaultNavs]);
+    const [groups, setGroups] = useState([defaultNavs1, defaultNavs2]);
     const saveGroups = useCallback((tmpGroups: Array<any>) => {
         setGroups(tmpGroups);
         webSdk.saveGroups(tmpGroups);
