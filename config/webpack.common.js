@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-const arguments = process.argv;
-const isEnvDevelopment = arguments[2] === 'serve';
+const args = process.argv;
+const isEnvDevelopment = args[2] === 'serve';
 
 const publicPath = isEnvDevelopment ? '/' : '//web-6g2g7792915bd2fb-1302006950.tcloudbaseapp.com/nav/';
 
